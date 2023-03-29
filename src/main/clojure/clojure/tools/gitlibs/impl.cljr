@@ -47,8 +47,11 @@
         command-args (cons command args)]
     (when debug
       (apply printerrln command-args))
-    (let [proc-builder (ProcessStartInfo. command (clojure.string/join args " "))                          ;;; (ProcessBuilder. ^java.util.List command-args)
-          _ (when debug (.set_RedirectStandardError proc-builder true))                                     ;;; (.redirectError proc-builder ProcessBuilder$Redirect/INHERIT)
+    (let [proc-builder 
+	     (doto (ProcessStartInfo. command (clojure.string/join args " "))                                  ;;; (ProcessBuilder. ^java.util.List command-args)
+            (.set_RedirectStandardError true)
+			(.set_RedirectStandardOutput true))
+                                                                                                           ;;; (.redirectError proc-builder ProcessBuilder$Redirect/INHERIT)
           ;;;                                                                                              ;;;  _ (when-not terminal (.put (.environment proc-builder) "GIT_TERMINAL_PROMPT" "0"))
           _ (apply printerrln args)
 		  _ (printerrln (.Arguments proc-builder))
