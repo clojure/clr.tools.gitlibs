@@ -13,7 +13,7 @@
   for private access. revs can be either full sha, prefix sha, or tag name."
   (:refer-clojure :exclude [resolve])
   (:require
-                                                            ;;; [clojure.java.io :as jio]
+    [clojure.clr.io :as cio]                                                  ;;; [clojure.java.io :as jio]
     [clojure.tools.gitlibs.config :as config]
     [clojure.tools.gitlibs.impl :as impl])
   (:import  [System.IO DirectoryInfo Path])	
@@ -39,7 +39,7 @@
         (if-let [res (impl/git-rev-parse git-dir r)]
           (conj rs res)
           (do ;; could not resolve - fetch and try again
-            (impl/git-fetch (DirectoryInfo. git-dir))                                      ;;; jio/file
+            (impl/git-fetch (cio/as-dir git-dir))                                      ;;; jio/file
             (conj rs (impl/git-rev-parse git-dir r)))))
       [] revs)))
 

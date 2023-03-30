@@ -47,14 +47,12 @@
         command-args (cons command args)]
     (when debug
       (apply printerrln command-args))
-    (let [proc-builder 
-	     (doto (ProcessStartInfo. command (clojure.string/join args " "))                                  ;;; (ProcessBuilder. ^java.util.List command-args)
+    (let [proc-builder
+	     (doto (ProcessStartInfo. command (clojure.string/join " " args))                                  ;;; (ProcessBuilder. ^java.util.List command-args)
             (.set_RedirectStandardError true)
 			(.set_RedirectStandardOutput true))
                                                                                                            ;;; (.redirectError proc-builder ProcessBuilder$Redirect/INHERIT)
           ;;;                                                                                              ;;;  _ (when-not terminal (.put (.environment proc-builder) "GIT_TERMINAL_PROMPT" "0"))
-          _ (apply printerrln args)
-		  _ (printerrln (.Arguments proc-builder))
 		  proc (Process/Start proc-builder)                                                                ;;; (.start proc-builder)
           out (background (capture (.StandardOutput proc)))                                                ;;;  .getInputStream
           err (background (capture (.StandardError proc)))                                                 ;; if debug is true, stderr will be redirected instead  .getErrorStream
@@ -186,11 +184,11 @@
   (when (.Exists dir)                                                                                       ;;; .exists
     (if (.Exists (cio/file-info dir prefix))                                                                ;;; .exists  jio/file
       prefix
-      (let [matches (.EnumerateFiles dir (str name "*"))]                                                   ;;; (.listFiles dir
+      (let [matches (.GetFiles dir (str name "*"))]                                                   ;;; (.listFiles dir
                                                                                                             ;;;       (reify FilenameFilter
                                                                                                             ;;;         (accept [_this _dir name]
                                                                                                             ;;;             (str/starts-with? name prefix))))]
-        (case (count matches)                                                                               ;;; alength
+        (case (alength matches)                                                                               ;;; alength
           0 nil
           1 (.Name ^FileInfo (first matches))                                                               ;;; (.getName ^File (aget matches 0))
           (throw (IOException. (str "Prefix not unique: " prefix))))))))
