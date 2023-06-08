@@ -21,7 +21,7 @@
    * default value"
   [property env default]
   (or
-     (.get_Item System.Configuration.ConfigurationManager/AppSettings ^String property)            ;;; (System/getProperty property)
+     #_(.get_Item System.Configuration.ConfigurationManager/AppSettings ^String property)            ;;; (System/getProperty property)
     (Environment/GetEnvironmentVariable env)                                                       ;;; (System/getenv env)
     default))
 
