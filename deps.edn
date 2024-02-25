@@ -1,0 +1,7 @@
+{
+   :paths ["src/main/clojure"]
+   :aliases
+   {:test {:extra-paths ["src/test/clojure"]}
+           :extra-deps {io.github.dmiller/test-runner {:git/sha "TBD"}}}
+}
+   
