@@ -1,4 +1,4 @@
-(defproject org.clojure.clr/tools.gitlibs "2.5.190"
+(defproject org.clojure.clr/tools.gitlibs "2.5.197"
   :description "Port of clojure.org/tools.gitlibs to ClojureCLR"
   :url "https://github.com/clojure/clr.tools.gitlibs"
   :license {:name "Eclipse Public License"
