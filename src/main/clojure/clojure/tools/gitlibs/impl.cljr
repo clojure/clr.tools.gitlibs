@@ -48,7 +48,7 @@
     (when debug
       (apply printerrln command-args))
     (let [proc-builder
-	     (doto (ProcessStartInfo. command (clojure.string/join " " args))                                  ;;; (ProcessBuilder. ^java.util.List command-args)
+	     (doto (ProcessStartInfo. ^String command ^String (clojure.string/join " " args))                  ;;; (ProcessBuilder. ^java.util.List command-args)
             (.set_RedirectStandardError true)
 			(.set_RedirectStandardOutput true))
                                                                                                            ;;; (.redirectError proc-builder ProcessBuilder$Redirect/INHERIT)
@@ -102,7 +102,16 @@
 
 (defn git-dir
   ^DirectoryInfo [url]                                                                            ;;; ^File
-  (cio/dir-info (:gitlibs/dir @config/CONFIG) "_repos" (clean-url url)))                         ;;; jio/file
+  (cio/dir-info (:gitlibs/dir @config/CONFIG) "_repos" (clean-url url)))                          ;;; jio/file
+
+(defn git-try-fetch
+  "Try to fetch and return the error code (0=success)"
+  [^FileInfo git-dir]                                                                             ;;; ^File
+  (let [git-path (.FullName git-dir)                                                              ;;; .getCanonicalPath
+        ;; NOTE: --prune-tags would be desirable here but was added in git 2.17.0
+        {:keys [exit]} (run-git "--git-dir" git-path
+                                "fetch" "--quiet" "--all" "--tags" "--prune")]
+    exit))
 
 (defn git-fetch
   [^DirectoryInfo git-dir]                                                                        ;;; ^File
@@ -117,7 +126,7 @@
 (defn git-clone-bare
   [url ^DirectoryInfo git-dir]                                                                     ;;; ^File
   (printerrln "Cloning:" url)
-  (let [git-path (.FullName git-dir)                                                              ;;; .getCanonicalPath
+  (let [git-path (.FullName git-dir)                                                               ;;; .getCanonicalPath
         {:keys [exit err] :as ret} (run-git "clone" "--quiet" "--mirror" url git-path)]
     (when-not (zero? exit)
       (throw (ex-info (format "Unable to clone %s%n%s" git-path err) ret)))
@@ -196,7 +205,7 @@
 (defn tags
   "Fetch, then return all tags in the git dir."
   [git-dir]
-  (git-fetch (cio/as-dir git-dir))                                                                       ;;; jio/file
+  (git-try-fetch (cio/as-dir git-dir))                                                                       ;;; jio/file
   (let [{:keys [exit out err] :as ret} (run-git "--git-dir" git-dir "tag" "--sort=v:refname")]
     (when-not (zero? exit)
       (throw (ex-info (format "Unable to get tags %s%n%s" git-dir err) ret)))
