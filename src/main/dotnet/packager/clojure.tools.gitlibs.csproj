@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+  </PropertyGroup>
+
+	<PropertyGroup>
+		<PackageId>clojure.tools.gitlibs</PackageId>
+		<RootNamespace>clojure.tools</RootNamespace>
+		<Title>clojure.tools.gitlibs</Title>
+		<Product>clojure.tools.gitlibs</Product>
+		<AssemblyTitle>clojure.tools.gitlibs</AssemblyTitle>
+		<Authors>ClojureCLR Contributors</Authors>
+		<Description>An API for retrieving, caching, and programatically accessing git libraries.</Description>
+		<Copyright>Copyright © Rich Hickey, ClojureCLR contributors</Copyright>
+		<PackageLicenseExpression>EPL-1.0</PackageLicenseExpression>
+		<RepositoryUrl>https://github.com/clojure/clr.tools.gitlibs</RepositoryUrl>
+		<Company>ClojureCLR contributors</Company>
+		<PackageTags>Clojure;ClojureCLR</PackageTags>
+		<Version>2.5.197</Version>
+	</PropertyGroup>
+	
+	<ItemGroup>
+		<EmbeddedResource CopyToOutputDirectory="Never" Include ="..\..\clojure\clojure\tools\**\*"/>
+	</ItemGroup>
+</Project>
