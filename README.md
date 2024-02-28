@@ -19,7 +19,7 @@ The equivalent of `~/.gitlibs` on Windows is the the `.gitlibs` directory in the
 deps.edn reference:
 
 ```
-    {io.github.clojure/clr.tools.gitlibs {:git/tag "sha "TO_BE_DETERMINED"}}
+    {io.github.clojure/clr.tools.gitlibs {:git/tag "v2.5.197" sha "a45c55f"}}
 ```
 
 Nuget reference:
