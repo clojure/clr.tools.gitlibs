@@ -1,4 +1,4 @@
-(ns clojure.tools.gitlibs.test-impl
+(ns clojure.tools.gitlibs.impl-test
   (:require
     [clojure.test :refer :all]
     [clojure.tools.gitlibs.impl :as impl]))

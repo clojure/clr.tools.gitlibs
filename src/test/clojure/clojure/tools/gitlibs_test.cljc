@@ -6,7 +6,7 @@
 ;   the terms of this license.
 ;   You must not remove this notice, or any other, from this software.
 
-(ns clojure.tools.test-gitlibs
+(ns clojure.tools.gitlibs-test
   (:require
     [clojure.clr.io :as cio]                                    ;;; [clojure.java.io :as jio]
     [clojure.test :refer :all]
