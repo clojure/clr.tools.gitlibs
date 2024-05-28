@@ -17,7 +17,7 @@
 		<RepositoryUrl>https://github.com/clojure/clr.tools.gitlibs</RepositoryUrl>
 		<Company>ClojureCLR contributors</Company>
 		<PackageTags>Clojure;ClojureCLR</PackageTags>
-		<Version>2.5.197</Version>
+		<Version>2.5.198</Version>
 	</PropertyGroup>
 	
 	<ItemGroup>
